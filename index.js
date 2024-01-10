@@ -63,7 +63,7 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 //database connection
 const connectDb = async () => {
     try {
-        await mongoose.connect(process.env.MONG_URI)
+        await mongoose.connect(process.env.MONGODB_URI)
         console.log('database connected successfuly')
     } catch (err) {
         console.log(err)
