@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
         if (!match) {
             return res.status(401).json('Wrong Credentials')
         }
-        const token = jwt.sign({ _id: user._id, username: user.username, email: user.email }, process.env.SECRET, { expiresIn: "3d" })
+        const token = jwt.sign({ _id: user._id, username: user.username, email: user.email }, process.env.MONGODB_SECRETE, { expiresIn: "3d" })
         const { password, ...info } = user._doc
         res.cookie("token", token).status(200).json(info);
     } catch (err) {
@@ -53,7 +53,7 @@ router.get('/logout', async (req, res) => {
 //REFECTCH USER
 router.get('/refetch', (req, res) => {
     const token = req.cookies.token
-    jwt.verify(token, process.env.SECRET, {}, async (err, data) => {
+    jwt.verify(token, process.env.MONGODB_SECRETE, {}, async (err, data) => {
         if (err) {
             return res.status(404).json(err)
         }
