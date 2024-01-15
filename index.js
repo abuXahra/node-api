@@ -18,7 +18,7 @@ const port = process.env.PORT || 5000;
 
 const corsOptions = {
     origin: ["http://localhost:3000", "https://blog-9erg.onrender.com"], //https://pblog-lno1.onrender.com
-    methods: ["POST", "GET"],
+    // methods: ["POST", "GET"],
     credentials: true
 };
 
