@@ -124,6 +124,8 @@ router.get('/', async (req, res) => {
 })
 
 
+
+
 // // Get all posts with their comments
 // router.get('/', async (req, res) => {
 //     try {
@@ -158,6 +160,33 @@ router.get("/user/:userId", async (req, res) => {
     }
 })
 
+
+// GET POST AND ITS CATEGORIES & COMMENTS
+router.get('/post/cat', async (req, res) => {
+    try {
+        const posts = await Post.find()
+            .populate('categories', 'title')
+            .populate('comments')
+            .sort({ createdAt: -1 });
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+
+// OR: this will display category and their data
+// router.get('/post/cat', async (req, res) => {
+//     try {
+//         const postsWithCategories = await Post.find()
+//             .populate('categories')
+//             .populate('comments');
+//         res.json({ postsWithCategories });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
 
 
 
@@ -209,29 +238,6 @@ router.delete('/:postId/comment/:commentId', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
-
-
-
-
-
-
-
-
-// //GET POST CATEGORIES
-// router.get('/:postId/categories', async (req, res) => {
-//     try {
-//         const postId = req.params.postId;
-//         const post = await Post.findById(postId).populate('categories')
-//         if (!post) {
-//             return res.status(404).json({ message: 'Post not found' })
-//         }
-//         res.status(200).json(post.categories);
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// })
-
 
 
 module.exports = router;

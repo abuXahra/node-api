@@ -67,18 +67,7 @@ router.get('/:id', async (req, res) => {
 })
 
 
-
-
 //GET CATEGORY POST
-router.get("/ssf:categoryId/posts/", async (req, res) => {
-    try {
-        const posts = await Post.find({ categories: req.params.title }).populate('posts').sort({ createdAt: -1 })
-        res.status(200).json(posts)
-    } catch (err) {
-        res.status(500).json(err);
-    }
-})
-
 
 // Endpoint to get posts by a specific category ID
 router.get('/:categoryId/posts', async (req, res) => {
@@ -90,6 +79,7 @@ router.get('/:categoryId/posts', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 
 module.exports = router;
