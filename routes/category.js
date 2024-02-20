@@ -73,13 +73,12 @@ router.get('/:id', async (req, res) => {
 router.get('/:categoryId/posts', async (req, res) => {
     try {
         const categoryId = req.params.categoryId;
-        const posts = await Post.find({ categories: categoryId });
+        const posts = await Post.find({ categories: categoryId }).sort({ createdAt: -1 });
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 
 module.exports = router;

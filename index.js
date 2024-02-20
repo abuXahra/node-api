@@ -13,6 +13,9 @@ const userRoute = require('./routes/users')
 const commentRoute = require('./routes/comment')
 const postsRoute = require('./routes/posts')
 const categoryRoute = require('./routes/category')
+const VideoRouter = require('./routes/video')
+
+
 const port = process.env.PORT || 5000;
 
 
@@ -40,6 +43,7 @@ app.use('/api/users', userRoute)
 app.use('/api/posts', postsRoute)
 app.use('/api/comments', commentRoute)
 app.use('/api/categories', categoryRoute)
+app.use('/api/videos', VideoRouter)
 
 
 // Image upload route
