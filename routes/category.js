@@ -49,7 +49,7 @@ router.delete('/:id', async (req, res) => {
 // GET All category
 router.get('/', async (req, res) => {
     try {
-        const cats = await Category.find()
+        const cats = await Category.find().populate('posts')
         res.status(200).json(cats)
     } catch (err) {
         res.status(500).json(err)
@@ -70,6 +70,8 @@ router.get('/:id', async (req, res) => {
 //GET CATEGORY POST
 
 // Endpoint to get posts by a specific category ID
+
+// without pagination
 router.get('/:categoryId/posts', async (req, res) => {
     try {
         const categoryId = req.params.categoryId;
