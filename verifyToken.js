@@ -17,4 +17,3 @@ const verifyToken = (req, res, next) => {
 
 
 module.exports = verifyToken;
-// 2:38:06

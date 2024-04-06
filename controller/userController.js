@@ -1,59 +1,68 @@
-const express = require("express")
+
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const Post = require("../models/Post")
+const Comment = require("../models/Comment")
 
 
 
 
-
-//REGISTER
-const userRegister = async (req, res) => {
+//UPDATE
+exports.userUpdate = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
-        const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash(password, salt);
-        const newUser = new User({ username, email, password: hashPassword })
-        const savedUser = await newUser.save()
-        res.status(200).json(savedUser);
+        if (req.body.password) {
+            const salt = await bcrypt.genSalt(10);
+            req.body.password = await bcrypt.hash(req.body.password, salt);
+        }
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+        res.status(200).json(updatedUser);
+
     } catch (err) {
         res.status(500).json(err)
     }
 }
 
 
-//LOGIN
-const userLogin = async (req, res) => {
+//GET SINGLE USER
+exports.userFetch = async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email })
-        if (!user) {
-            return res.status(404).json("User not found")
-        }
-        const match = bcrypt.compare(req.body.password, user.password)
-        if (!match) {
-            return res.status(401).json('Wrong Credentials')
-        }
-        const token = jwt.sign({ id: user._id }, process.env.MONGODB_SECRETE, { expiresIn: "3d" })
-        const { password, ...info } = user._doc
-        res.cookie("token", token).status(200).json(info);
+        const userId = req.params.userId;
+        const user = await User.findById(userId); // Retrieve user from MongoDB by ID
+        res.json(user); // Send user data as JSON response
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
+// GET ALL USER
+exports.allUsersFetch = async (req, res) => {
+    try {
+        const users = await User.find()
+        res.status(200).json(users)
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+//DELETE
+exports.userDelete = async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.id)
+        await Post.deleteMany({ userId: req.params.id })
+        await Comment.deleteMany({ userId: req.params.id })
+        res.status(200).json('User has been deleted')
     } catch (err) {
         res.status(500).json(err)
     }
 }
-//1: 55: 29
+
 
 //LOGOUT
-const userLogout = async (req, res) => {
+exports.userLogout = async (req, res) => {
     try {
         res.clearCookie("token", { sameSite: "none", secure: true }).status(200).send("User Logged out Successfuly")
     } catch (err) {
         res.status(500).json(err)
     }
-}
-
-
-module.exports = {
-    userRegister,
-    userLogin,
-    userLogout
 }
