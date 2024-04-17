@@ -73,9 +73,9 @@ const connectDb = async () => {
         console.log(err)
     }
 }
-app.post("/api/upload", upload.single("file"), (req, res) => {
-    return res.status(200).json("File has been uploaded")
-})
+// app.post("/api/upload", upload.single("file"), (req, res) => {
+//     return res.status(200).json("File has been uploaded")
+// })
 
 
 app.listen(port, () => {
