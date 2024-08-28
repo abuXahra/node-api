@@ -3,6 +3,7 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const Post = require("../models/Post")
 const Comment = require("../models/Comment")
+const verifyToken = require("../verifyToken")
 
 
 
@@ -63,6 +64,22 @@ exports.userLogout = async (req, res) => {
     try {
         res.clearCookie("token", { sameSite: "none", secure: true }).status(200).send("User Logged out Successfuly")
     } catch (err) {
-        res.status(500).json(err)
+        res.status(500).json("user does not exist");
     }
 }
+
+
+// exports.userForgotPassword = async(req, res)=>{
+//     try {
+//         const {email} = req.body
+//         const user = await User.findOne(email);
+
+//         if(!user){
+//             return res.status(404).json
+//         }
+
+// } catch (error) {
+        
+//     }
+
+// }
