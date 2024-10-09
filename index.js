@@ -21,7 +21,11 @@ const chartRoute = require("./routes/chart");
 const port = process.env.PORT || 5000;
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://newsblog-244u.onrender.com"], //https://pblog-lno1.onrender.com
+  origin: [
+    "http://localhost:3000",
+    "https://newsblog-244u.onrender.com",
+    "https://blog-dasboard.onrender.com/",
+  ], //https://pblog-lno1.onrender.com
   // methods: ["POST", "GET"],
   credentials: true,
 };
