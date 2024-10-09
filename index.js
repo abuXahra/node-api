@@ -24,7 +24,7 @@ const corsOptions = {
   origin: [
     "http://localhost:3000",
     "https://newsblog-244u.onrender.com",
-    "https://blog-dasboard.onrender.com/",
+    "https://blog-dasboard.onrender.com",
   ], //https://pblog-lno1.onrender.com
   // methods: ["POST", "GET"],
   credentials: true,
