@@ -4,10 +4,20 @@ const jwt = require("jsonwebtoken");
 
 exports.userRegister = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, photo, password, role, isAdmin } = req.body;
+
+    // const { username, email, password } = req.body;
+
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
-    const newUser = new User({ username, email, password: hashPassword });
+    const newUser = new User({
+      username,
+      email,
+      photo,
+      password: hashPassword,
+      role,
+      isAdmin,
+    });
     const savedUser = await newUser.save();
     res.status(200).json(savedUser);
   } catch (err) {

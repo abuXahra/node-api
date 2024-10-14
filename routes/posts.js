@@ -105,6 +105,7 @@ router.get("/", async (req, res) => {
     };
     const posts = await Post.find(query.search ? searchFilter : null)
       .populate("comments")
+      .populate("categories")
       .sort({ createdAt: -1 }); //lmit(8) to display only 8 posts
 
     res.status(200).json(posts);
