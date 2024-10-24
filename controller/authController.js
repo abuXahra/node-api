@@ -38,7 +38,7 @@ exports.userLogin = async (req, res) => {
     const token = jwt.sign(
       { _id: user._id, username: user.username, email: user.email },
       process.env.MONGODB_SECRETE,
-      { expiresIn: "1d" }
+      { expiresIn: "3d" }
     );
     const { password, ...info } = user._doc;
     res.cookie("token", token).status(200).json(info);

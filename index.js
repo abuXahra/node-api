@@ -17,12 +17,14 @@ const categoryRoute = require("./routes/category");
 const VideoRouter = require("./routes/video");
 const shareRoute = require("./routes/sharePosts");
 const chartRoute = require("./routes/chart");
+const advertRoute = require("./routes/advert");
 
 const port = process.env.PORT || 5000;
 
 const corsOptions = {
   origin: [
     "http://localhost:3000",
+    "http://localhost:3001",
     "https://newsblog-244u.onrender.com",
     "https://blog-dasboard.onrender.com",
   ], //https://pblog-lno1.onrender.com
@@ -35,6 +37,7 @@ dotenv.config();
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images"))); //for image upload url
 app.use(cors(corsOptions)); //to syncronize front and backenth
+// app.use(cors());
 
 // app.use(cors({ origin: ["http://localhost:3000"], credentials: true })) //to syncronize front and backenth
 app.use(cookieParser());
@@ -48,6 +51,7 @@ app.use("/api/categories", categoryRoute);
 app.use("/api/videos", VideoRouter);
 app.use("/api/share", shareRoute);
 app.use("/api/chart", chartRoute);
+app.use("/api/adverts", advertRoute);
 
 // Image upload route
 const storage = multer.diskStorage({
@@ -59,6 +63,7 @@ const storage = multer.diskStorage({
     fn(null, file.originalname);
   },
 });
+
 const upload = multer({ storage });
 app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("Image has been uploaded successfully");
