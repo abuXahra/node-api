@@ -4,7 +4,18 @@ const jwt = require("jsonwebtoken");
 
 exports.userRegister = async (req, res) => {
   try {
-    const { username, email, photo, password, role, isAdmin } = req.body;
+    // const { username, email, photo, password, role, isAdmin } = req.body;
+    const {
+      username,
+      email,
+      photo,
+      password,
+      role,
+      facebookUrl,
+      twitterUrl,
+      instagramUrl,
+      linkedInUrl,
+    } = req.body;
 
     // const { username, email, password } = req.body;
 
@@ -16,7 +27,16 @@ exports.userRegister = async (req, res) => {
       photo,
       password: hashPassword,
       role,
-      isAdmin,
+      facebookUrl,
+      twitterUrl,
+      instagramUrl,
+      linkedInUrl,
+      // username,
+      // email,
+      // photo,
+
+      // role,
+      // isAdmin,
     });
     const savedUser = await newUser.save();
     res.status(200).json(savedUser);

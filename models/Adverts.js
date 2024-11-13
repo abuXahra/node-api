@@ -25,6 +25,7 @@ AdvertSchema.methods.getAdvertOrPlaceholder = function () {
     title: isExpired ? "Default Placeholder Title" : this.title,
     photo: isExpired ? "default-placeholder-url" : this.photo,
     adsUrl: isExpired ? "default-placeholder-url" : this.adsUrl,
+    createdAtDate: createdAtDate,
     expirationDate: expirationDate,
     adType: this.adType,
     remainingDays: remainingDays,

@@ -26,10 +26,26 @@ const UserSchema = new mongoose.Schema(
       enum: ["admin", "sub-admin", "user"],
       default: "user",
     },
+    facebookUrl: {
+      type: String,
+      required: false,
+    },
+    twitterUrl: {
+      type: String,
+      required: false,
+    },
+    instagramUrl: {
+      type: String,
+      required: false,
+    },
+    linkedInUrl: {
+      type: String,
+      required: false,
+    },
     isAdmin: {
       type: String,
       default: false,
-      require: true,
+      require: false,
     },
   },
   { timestamps: true }

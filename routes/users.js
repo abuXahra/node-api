@@ -4,12 +4,12 @@ const verifyToken = require("../verifyToken");
 const userController = require("../controller/userController");
 
 // ================ROUTES============
-
+// verifyToken,
 //UPDATE
-route.put("/:id", verifyToken, userController.userUpdate);
+route.put("/:id", userController.userUpdate);
 
 //DELETE
-route.delete("/:id", verifyToken, userController.userDelete);
+route.delete("/:id", userController.userDelete);
 
 //GET SINGLE USER
 route.get("/:userId", userController.userFetch);
