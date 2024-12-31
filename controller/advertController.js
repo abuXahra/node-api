@@ -4,6 +4,7 @@ const Adverts = require("../models/Adverts");
 exports.createAds = async (req, res) => {
   try {
     const advert = new Adverts(req.body);
+
     await advert.save();
     res.status(201).json(advert);
   } catch (err) {

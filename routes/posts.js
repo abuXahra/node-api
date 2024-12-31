@@ -34,6 +34,15 @@ router.post("/create", async (req, res) => {
     });
 
     await newPost.save();
+
+    // Create a notification for the admin
+    // const notificationMessage = `New post created by ${username}`;
+    // await axios.post("http://localhost:5000/api/notifications", {
+    //   userId: userId,
+    //   actionType: "post-created",
+    //   message: notificationMessage,
+    // });
+
     res.status(200).json(newPost);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -76,6 +85,14 @@ router.put("/:id", verifyToken, async (req, res) => {
     existingPost.userId = userId;
     existingPost.categories.push(...uniqueCategories);
     await existingPost.save();
+
+    // Create a notification for the admin with regards to the update
+    const notificationMessage = `A post was updated by ${username}`;
+    await axios.post("http://localhost:5000/api/notifications", {
+      userId: userId,
+      actionType: "post-updated",
+      message: notificationMessage,
+    });
 
     res.status(200).json(existingPost);
   } catch (error) {

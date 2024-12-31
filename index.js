@@ -18,6 +18,7 @@ const VideoRouter = require("./routes/video");
 const shareRoute = require("./routes/sharePosts");
 const chartRoute = require("./routes/chart");
 const advertRoute = require("./routes/advert");
+const notificationRoute = require("./routes/notification");
 
 const port = process.env.PORT || 5000;
 
@@ -52,6 +53,7 @@ app.use("/api/videos", VideoRouter);
 app.use("/api/share", shareRoute);
 app.use("/api/chart", chartRoute);
 app.use("/api/adverts", advertRoute);
+app.use("/api/notification", notificationRoute);
 
 // Image upload route
 const storage = multer.diskStorage({
